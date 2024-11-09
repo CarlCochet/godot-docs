@@ -32,6 +32,8 @@ When naming a Project Settings property, use the full path to the setting includ
 Tutorials
 ---------
 
+- :doc:`Project Settings <../tutorials/editor/project_settings>`
+
 - `3D Physics Tests Demo <https://godotengine.org/asset-library/asset/2747>`__
 
 - `3D Platformer Demo <https://godotengine.org/asset-library/asset/2748>`__
@@ -403,6 +405,10 @@ Properties
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                           | :ref:`display/window/energy_saving/keep_screen_on<class_ProjectSettings_property_display/window/energy_saving/keep_screen_on>`                                                                             | ``true``                                                                                         |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
+   | :ref:`bool<class_bool>`                           | :ref:`display/window/frame_pacing/android/enable_frame_pacing<class_ProjectSettings_property_display/window/frame_pacing/android/enable_frame_pacing>`                                                     | ``true``                                                                                         |
+   +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
+   | :ref:`int<class_int>`                             | :ref:`display/window/frame_pacing/android/swappy_mode<class_ProjectSettings_property_display/window/frame_pacing/android/swappy_mode>`                                                                     | ``2``                                                                                            |
+   +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                             | :ref:`display/window/handheld/orientation<class_ProjectSettings_property_display/window/handheld/orientation>`                                                                                             | ``0``                                                                                            |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                           | :ref:`display/window/ios/allow_high_refresh_rate<class_ProjectSettings_property_display/window/ios/allow_high_refresh_rate>`                                                                               | ``true``                                                                                         |
@@ -432,6 +438,8 @@ Properties
    | :ref:`bool<class_bool>`                           | :ref:`display/window/size/no_focus<class_ProjectSettings_property_display/window/size/no_focus>`                                                                                                           | ``false``                                                                                        |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                           | :ref:`display/window/size/resizable<class_ProjectSettings_property_display/window/size/resizable>`                                                                                                         | ``true``                                                                                         |
+   +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
+   | :ref:`bool<class_bool>`                           | :ref:`display/window/size/sharp_corners<class_ProjectSettings_property_display/window/size/sharp_corners>`                                                                                                 | ``false``                                                                                        |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                           | :ref:`display/window/size/transparent<class_ProjectSettings_property_display/window/size/transparent>`                                                                                                     | ``false``                                                                                        |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
@@ -1286,6 +1294,8 @@ Properties
    | :ref:`int<class_int>`                             | :ref:`physics/common/physics_ticks_per_second<class_ProjectSettings_property_physics/common/physics_ticks_per_second>`                                                                                     | ``60``                                                                                           |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                             | :ref:`rendering/2d/batching/item_buffer_size<class_ProjectSettings_property_rendering/2d/batching/item_buffer_size>`                                                                                       | ``16384``                                                                                        |
+   +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
+   | :ref:`int<class_int>`                             | :ref:`rendering/2d/batching/uniform_set_cache_size<class_ProjectSettings_property_rendering/2d/batching/uniform_set_cache_size>`                                                                           | ``256``                                                                                          |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                             | :ref:`rendering/2d/sdf/oversize<class_ProjectSettings_property_rendering/2d/sdf/oversize>`                                                                                                                 | ``1``                                                                                            |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
@@ -2244,6 +2254,8 @@ Specifies the audio driver to use. This setting is platform-dependent as each pl
 
 The ``Dummy`` audio driver disables all audio playback and recording, which is useful for non-game applications as it reduces CPU usage. It also prevents the engine from appearing as an application playing audio in the OS' audio mixer.
 
+To query the value that is being used at run-time (which may be overridden by command-line arguments or headless mode), use :ref:`AudioServer.get_driver_name<class_AudioServer_method_get_driver_name>`.
+
 \ **Note:** The driver in use can be overridden at runtime via the ``--audio-driver`` :doc:`command line argument <../tutorials/editor/command_line_tutorial>`.
 
 .. rst-class:: classref-item-separator
@@ -2956,7 +2968,7 @@ When set to ``warn`` or ``error``, produces a warning or an error respectively w
 
 :ref:`int<class_int>` **debug/gdscript/warnings/shadowed_variable** = ``1`` :ref:`🔗<class_ProjectSettings_property_debug/gdscript/warnings/shadowed_variable>`
 
-When set to ``warn`` or ``error``, produces a warning or an error respectively when defining a local or member variable that would shadow a member variable that the class defines.
+When set to ``warn`` or ``error``, produces a warning or an error respectively when a local variable or local constant shadows a member declared in the current class.
 
 .. rst-class:: classref-item-separator
 
@@ -2968,7 +2980,7 @@ When set to ``warn`` or ``error``, produces a warning or an error respectively w
 
 :ref:`int<class_int>` **debug/gdscript/warnings/shadowed_variable_base_class** = ``1`` :ref:`🔗<class_ProjectSettings_property_debug/gdscript/warnings/shadowed_variable_base_class>`
 
-When set to ``warn`` or ``error``, produces a warning or an error respectively when defining a local or subclass member variable that would shadow a variable that is inherited from a parent class.
+When set to ``warn`` or ``error``, produces a warning or an error respectively when a local variable or local constant shadows a member declared in a base class.
 
 .. rst-class:: classref-item-separator
 
@@ -3976,6 +3988,40 @@ If ``true``, keeps the screen on (even in case of inactivity), so the screensave
 
 ----
 
+.. _class_ProjectSettings_property_display/window/frame_pacing/android/enable_frame_pacing:
+
+.. rst-class:: classref-property
+
+:ref:`bool<class_bool>` **display/window/frame_pacing/android/enable_frame_pacing** = ``true`` :ref:`🔗<class_ProjectSettings_property_display/window/frame_pacing/android/enable_frame_pacing>`
+
+Enable Swappy for stable frame pacing on Android. Highly recommended.
+
+\ **Note:** This option will be forced off when using OpenXR.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_ProjectSettings_property_display/window/frame_pacing/android/swappy_mode:
+
+.. rst-class:: classref-property
+
+:ref:`int<class_int>` **display/window/frame_pacing/android/swappy_mode** = ``2`` :ref:`🔗<class_ProjectSettings_property_display/window/frame_pacing/android/swappy_mode>`
+
+Swappy mode to use. The options are:
+
+- pipeline_forced_on: Try to honor :ref:`Engine.max_fps<class_Engine_property_max_fps>`. Pipelining is always on. This is the same behavior as Desktop PC.
+
+- auto_fps_pipeline_forced_on: Autocalculate max fps. Actual max_fps will be between 0 and :ref:`Engine.max_fps<class_Engine_property_max_fps>`. While this sounds convenient, beware that Swappy will often downgrade max fps until it finds something that can be met and sustained. That means if your game runs between 40fps and 60fps on a 60hz screen, after some time Swappy will downgrade max fps so that the game renders at perfect 30fps.
+
+- auto_fps_auto_pipeline: Same as auto_fps_pipeline_forced_on, but if Swappy detects that rendering is very fast (e.g. it takes < 8ms to render on a 60hz screen) Swappy will disable pipelining to minimize input latency. This is the default.
+
+\ **Note:** If :ref:`Engine.max_fps<class_Engine_property_max_fps>` is 0, actual max_fps will considered as to be the screen's refresh rate (often 60hz, 90hz or 120hz depending on device model and OS settings).
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_ProjectSettings_property_display/window/handheld/orientation:
 
 .. rst-class:: classref-property
@@ -4179,6 +4225,20 @@ If ``true``, allows the window to be resizable by default.
 \ **Note:** Certain window managers can be configured to ignore the non-resizable status of a window. Do not rely on this setting as a guarantee that the window will *never* be resizable.
 
 \ **Note:** This setting is ignored on iOS.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_ProjectSettings_property_display/window/size/sharp_corners:
+
+.. rst-class:: classref-property
+
+:ref:`bool<class_bool>` **display/window/size/sharp_corners** = ``false`` :ref:`🔗<class_ProjectSettings_property_display/window/size/sharp_corners>`
+
+If ``true``, the main window uses sharp corners by default.
+
+\ **Note:** This property is implemented only on Windows (11).
 
 .. rst-class:: classref-item-separator
 
@@ -9691,6 +9751,20 @@ The number of fixed iterations per second. This controls how often physics simul
 :ref:`int<class_int>` **rendering/2d/batching/item_buffer_size** = ``16384`` :ref:`🔗<class_ProjectSettings_property_rendering/2d/batching/item_buffer_size>`
 
 Maximum number of canvas item commands that can be batched into a single draw call.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_ProjectSettings_property_rendering/2d/batching/uniform_set_cache_size:
+
+.. rst-class:: classref-property
+
+:ref:`int<class_int>` **rendering/2d/batching/uniform_set_cache_size** = ``256`` :ref:`🔗<class_ProjectSettings_property_rendering/2d/batching/uniform_set_cache_size>`
+
+Maximum number of uniform sets that will be cached by the 2D renderer when batching draw calls.
+
+\ **Note:** A project that uses a large number of unique sprite textures per frame may benefit from increasing this value.
 
 .. rst-class:: classref-item-separator
 
