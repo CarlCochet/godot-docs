@@ -349,6 +349,8 @@ Methods
    +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                                           | :ref:`environment_set_bg_energy<class_RenderingServer_method_environment_set_bg_energy>`\ (\ env\: :ref:`RID<class_RID>`, multiplier\: :ref:`float<class_float>`, exposure_value\: :ref:`float<class_float>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
    +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                                           | :ref:`environment_set_camera_id<class_RenderingServer_method_environment_set_camera_id>`\ (\ env\: :ref:`RID<class_RID>`, id\: :ref:`int<class_int>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+   +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                                           | :ref:`environment_set_canvas_max_layer<class_RenderingServer_method_environment_set_canvas_max_layer>`\ (\ env\: :ref:`RID<class_RID>`, max_layer\: :ref:`int<class_int>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
    +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                                           | :ref:`environment_set_fog<class_RenderingServer_method_environment_set_fog>`\ (\ env\: :ref:`RID<class_RID>`, enable\: :ref:`bool<class_bool>`, light_color\: :ref:`Color<class_Color>`, light_energy\: :ref:`float<class_float>`, sun_scatter\: :ref:`float<class_float>`, density\: :ref:`float<class_float>`, height\: :ref:`float<class_float>`, height_density\: :ref:`float<class_float>`, aerial_perspective\: :ref:`float<class_float>`, sky_affect\: :ref:`float<class_float>`, fog_mode\: :ref:`EnvironmentFogMode<enum_RenderingServer_EnvironmentFogMode>` = 0\ )                                                                                                                           |
@@ -400,6 +402,10 @@ Methods
    | |void|                                                                           | :ref:`force_sync<class_RenderingServer_method_force_sync>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
    +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                                           | :ref:`free_rid<class_RenderingServer_method_free_rid>`\ (\ rid\: :ref:`RID<class_RID>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+   +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`String<class_String>`                                                      | :ref:`get_current_rendering_driver_name<class_RenderingServer_method_get_current_rendering_driver_name>`\ (\ ) |const|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+   +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`String<class_String>`                                                      | :ref:`get_current_rendering_method<class_RenderingServer_method_get_current_rendering_method>`\ (\ ) |const|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
    +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Color<class_Color>`                                                        | :ref:`get_default_clear_color<class_RenderingServer_method_get_default_clear_color>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
    +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -544,6 +550,8 @@ Methods
    | |void|                                                                           | :ref:`light_set_reverse_cull_face_mode<class_RenderingServer_method_light_set_reverse_cull_face_mode>`\ (\ light\: :ref:`RID<class_RID>`, enabled\: :ref:`bool<class_bool>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
    +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                                           | :ref:`light_set_shadow<class_RenderingServer_method_light_set_shadow>`\ (\ light\: :ref:`RID<class_RID>`, enabled\: :ref:`bool<class_bool>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+   +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                                           | :ref:`light_set_shadow_caster_mask<class_RenderingServer_method_light_set_shadow_caster_mask>`\ (\ light\: :ref:`RID<class_RID>`, mask\: :ref:`int<class_int>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
    +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`RID<class_RID>`                                                            | :ref:`lightmap_create<class_RenderingServer_method_lightmap_create>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
    +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -6258,7 +6266,7 @@ Draws a circle on the :ref:`CanvasItem<class_CanvasItem>` pointed to by the ``it
 
 |void| **canvas_item_add_clip_ignore**\ (\ item\: :ref:`RID<class_RID>`, ignore\: :ref:`bool<class_bool>`\ ) :ref:`🔗<class_RenderingServer_method_canvas_item_add_clip_ignore>`
 
-If ``ignore`` is ``true``, ignore clipping on items drawn with this canvas item until this is called again with ``ignore`` set to false.
+If ``ignore`` is ``true``, ignore clipping on items drawn with this canvas item until this is called again with ``ignore`` set to ``false``.
 
 .. rst-class:: classref-item-separator
 
@@ -7780,6 +7788,18 @@ Sets the intensity of the background color.
 
 ----
 
+.. _class_RenderingServer_method_environment_set_camera_id:
+
+.. rst-class:: classref-method
+
+|void| **environment_set_camera_id**\ (\ env\: :ref:`RID<class_RID>`, id\: :ref:`int<class_int>`\ ) :ref:`🔗<class_RenderingServer_method_environment_set_camera_id>`
+
+Sets the camera ID to be used as environment background.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_RenderingServer_method_environment_set_canvas_max_layer:
 
 .. rst-class:: classref-method
@@ -8098,6 +8118,34 @@ Tries to free an object in the RenderingServer. To avoid memory leaks, this shou
 
 ----
 
+.. _class_RenderingServer_method_get_current_rendering_driver_name:
+
+.. rst-class:: classref-method
+
+:ref:`String<class_String>` **get_current_rendering_driver_name**\ (\ ) |const| :ref:`🔗<class_RenderingServer_method_get_current_rendering_driver_name>`
+
+Returns the name of the current rendering driver. This can be ``vulkan``, ``d3d12``, ``metal``, ``opengl3``, ``opengl3_es``, or ``opengl3_angle``. See also :ref:`get_current_rendering_method<class_RenderingServer_method_get_current_rendering_method>`.
+
+The rendering driver is determined by :ref:`ProjectSettings.rendering/rendering_device/driver<class_ProjectSettings_property_rendering/rendering_device/driver>`, the ``--rendering-driver`` command line argument that overrides this project setting, or an automatic fallback that is applied depending on the hardware.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_RenderingServer_method_get_current_rendering_method:
+
+.. rst-class:: classref-method
+
+:ref:`String<class_String>` **get_current_rendering_method**\ (\ ) |const| :ref:`🔗<class_RenderingServer_method_get_current_rendering_method>`
+
+Returns the name of the current rendering method. This can be ``forward_plus``, ``mobile``, or ``gl_compatibility``. See also :ref:`get_current_rendering_driver_name<class_RenderingServer_method_get_current_rendering_driver_name>`.
+
+The rendering method is determined by :ref:`ProjectSettings.rendering/renderer/rendering_method<class_ProjectSettings_property_rendering/renderer/rendering_method>`, the ``--rendering-method`` command line argument that overrides this project setting, or an automatic fallback that is applied depending on the hardware.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_RenderingServer_method_get_default_clear_color:
 
 .. rst-class:: classref-method
@@ -8192,7 +8240,7 @@ Returns the RID of the test cube. This mesh will be created and returned on the 
 
 Returns the RID of a 256×256 texture with a testing pattern on it (in :ref:`Image.FORMAT_RGB8<class_Image_constant_FORMAT_RGB8>` format). This texture will be created and returned on the first call to :ref:`get_test_texture<class_RenderingServer_method_get_test_texture>`, then it will be cached for subsequent calls. See also :ref:`get_white_texture<class_RenderingServer_method_get_white_texture>`.
 
-Example of getting the test texture and applying it to a :ref:`Sprite2D<class_Sprite2D>` node:
+\ **Example:** Get the test texture and apply it to a :ref:`Sprite2D<class_Sprite2D>` node:
 
 ::
 
@@ -8270,7 +8318,7 @@ Returns the vendor of the video adapter (e.g. "NVIDIA Corporation").
 
 Returns the ID of a 4×4 white texture (in :ref:`Image.FORMAT_RGB8<class_Image_constant_FORMAT_RGB8>` format). This texture will be created and returned on the first call to :ref:`get_white_texture<class_RenderingServer_method_get_white_texture>`, then it will be cached for subsequent calls. See also :ref:`get_test_texture<class_RenderingServer_method_get_test_texture>`.
 
-Example of getting the white texture and applying it to a :ref:`Sprite2D<class_Sprite2D>` node:
+\ **Example:** Get the white texture and apply it to a :ref:`Sprite2D<class_Sprite2D>` node:
 
 ::
 
@@ -9031,6 +9079,18 @@ If ``true``, reverses the backface culling of the mesh. This can be useful when 
 |void| **light_set_shadow**\ (\ light\: :ref:`RID<class_RID>`, enabled\: :ref:`bool<class_bool>`\ ) :ref:`🔗<class_RenderingServer_method_light_set_shadow>`
 
 If ``true``, light will cast shadows. Equivalent to :ref:`Light3D.shadow_enabled<class_Light3D_property_shadow_enabled>`.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_RenderingServer_method_light_set_shadow_caster_mask:
+
+.. rst-class:: classref-method
+
+|void| **light_set_shadow_caster_mask**\ (\ light\: :ref:`RID<class_RID>`, mask\: :ref:`int<class_int>`\ ) :ref:`🔗<class_RenderingServer_method_light_set_shadow_caster_mask>`
+
+Sets the shadow caster mask for this 3D light. Shadows will only be cast using objects in the selected layers. Equivalent to :ref:`Light3D.shadow_caster_mask<class_Light3D_property_shadow_caster_mask>`.
 
 .. rst-class:: classref-item-separator
 
@@ -10323,7 +10383,7 @@ Sets the velocity of a particle node, that will be used by :ref:`ParticleProcess
 
 |void| **particles_set_emitting**\ (\ particles\: :ref:`RID<class_RID>`, emitting\: :ref:`bool<class_bool>`\ ) :ref:`🔗<class_RenderingServer_method_particles_set_emitting>`
 
-If ``true``, particles will emit over time. Setting to false does not reset the particles, but only stops their emission. Equivalent to :ref:`GPUParticles3D.emitting<class_GPUParticles3D_property_emitting>`.
+If ``true``, particles will emit over time. Setting to ``false`` does not reset the particles, but only stops their emission. Equivalent to :ref:`GPUParticles3D.emitting<class_GPUParticles3D_property_emitting>`.
 
 .. rst-class:: classref-item-separator
 
@@ -11203,7 +11263,7 @@ Once finished with your RID, you will want to free the RID using the RenderingSe
 
 Returns an :ref:`Image<class_Image>` instance from the given ``texture`` :ref:`RID<class_RID>`.
 
-Example of getting the test texture from :ref:`get_test_texture<class_RenderingServer_method_get_test_texture>` and applying it to a :ref:`Sprite2D<class_Sprite2D>` node:
+\ **Example:** Get the test texture from :ref:`get_test_texture<class_RenderingServer_method_get_test_texture>` and apply it to a :ref:`Sprite2D<class_Sprite2D>` node:
 
 ::
 
