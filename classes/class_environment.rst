@@ -453,6 +453,14 @@ Use the Academy Color Encoding System tonemapper. ACES is slightly more expensiv
 
 \ **Note:** This tonemapping operator is called "ACES Fitted" in Godot 3.x.
 
+.. _class_Environment_constant_TONE_MAPPER_AGX:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`ToneMapper<enum_Environment_ToneMapper>` **TONE_MAPPER_AGX** = ``4``
+
+Use the AgX tonemapper. AgX is slightly more expensive than other options, but it handles bright lighting in a more realistic fashion by desaturating it as it becomes brighter. AgX is less likely to darken parts of the scene compared to :ref:`TONE_MAPPER_ACES<class_Environment_constant_TONE_MAPPER_ACES>` and can match the overall scene brightness of :ref:`TONE_MAPPER_FILMIC<class_Environment_constant_TONE_MAPPER_FILMIC>` more closely.
+
 .. rst-class:: classref-item-separator
 
 ----
@@ -1350,7 +1358,9 @@ The texture that should be used as a glow map to *multiply* the resulting glow c
 - |void| **set_glow_map_strength**\ (\ value\: :ref:`float<class_float>`\ )
 - :ref:`float<class_float>` **get_glow_map_strength**\ (\ )
 
-How strong of an impact the :ref:`glow_map<class_Environment_property_glow_map>` should have on the overall glow effect. A strength of ``0.0`` means the glow map has no effect on the overall glow effect. A strength of ``1.0`` means the glow has a full effect on the overall glow effect (and can turn off glow entirely in specific areas of the screen if the glow map has black areas).
+How strong of an influence the :ref:`glow_map<class_Environment_property_glow_map>` should have on the overall glow effect. A strength of ``0.0`` means the glow map has no influence, while a strength of ``1.0`` means the glow map has full influence.
+
+\ **Note:** If the glow map has black areas, a value of ``1.0`` can also turn off the glow effect entirely in specific areas of the screen.
 
 \ **Note:** :ref:`glow_map_strength<class_Environment_property_glow_map_strength>` has no effect when using the Compatibility rendering method, due to this rendering method using a simpler glow implementation optimized for low-end devices.
 
@@ -2075,7 +2085,9 @@ The tonemapping mode to use. Tonemapping is the process that "converts" HDR valu
 - |void| **set_tonemap_white**\ (\ value\: :ref:`float<class_float>`\ )
 - :ref:`float<class_float>` **get_tonemap_white**\ (\ )
 
-The white reference value for tonemapping (also called "whitepoint"). Higher values can make highlights look less blown out, and will also slightly darken the whole scene as a result. Only effective if the :ref:`tonemap_mode<class_Environment_property_tonemap_mode>` isn't set to :ref:`TONE_MAPPER_LINEAR<class_Environment_constant_TONE_MAPPER_LINEAR>`. See also :ref:`tonemap_exposure<class_Environment_property_tonemap_exposure>`.
+The white reference value for tonemapping (also called "whitepoint"). Higher values can make highlights look less blown out, and will also slightly darken the whole scene as a result. See also :ref:`tonemap_exposure<class_Environment_property_tonemap_exposure>`.
+
+\ **Note:** :ref:`tonemap_white<class_Environment_property_tonemap_white>` is ignored when using :ref:`TONE_MAPPER_LINEAR<class_Environment_constant_TONE_MAPPER_LINEAR>` or :ref:`TONE_MAPPER_AGX<class_Environment_constant_TONE_MAPPER_AGX>`.
 
 .. rst-class:: classref-item-separator
 
